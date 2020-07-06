@@ -3,16 +3,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: './src/index.js',
+  entry: './src/',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      appMountId: 'app',
+      template: path.resolve(__dirname, "src", "index.html"),
       filename: 'index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
@@ -40,6 +41,9 @@ const config = {
         use: 'file-loader'
       }
     ]
+  },
+  devServer: {
+    contentBase: './dist'
   }
 };
 
